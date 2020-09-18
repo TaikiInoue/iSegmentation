@@ -1,0 +1,57 @@
+device: cuda:0
+
+model:
+  name: UNet
+  args:
+
+augs:
+  train:
+    yaml: /dgx/github/iSegmentation/iseg/yamls/augs/train_augs.yaml
+    updates:
+  val:
+    yaml: /dgx/github/iSegmentation/iseg/yamls/augs/test_augs.yaml
+    updates:
+  test:
+    yaml: /dgx/github/iSegmentation/iseg/yamls/augs/test_augs.yaml
+    updates:
+
+dataset:
+  name: CityscapeDataset
+  base: /dgx/github/iSegmentation/data/cityscape
+  train:
+    query:
+      - data_type == 'train'
+  val:
+    query:
+      - data_type == 'val'
+  test:
+    query:
+      - data_type == 'test'
+
+dataloader:
+  train:
+    args:
+      batch_size: 8
+      shuffle: True
+  val:
+    args:
+      batch_size: 1
+      shuffle: True
+  test:
+    args:
+      batch_size: 1
+      shuffle: True
+
+optimizer:
+  name: Adam
+  args:
+    lr: 0.0002
+    weight_decay: 0.00001
+
+criterion:
+  name: CrossEntropyLoss
+  args:
+
+run:
+  train:
+    epochs: 200
