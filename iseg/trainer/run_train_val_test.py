@@ -37,7 +37,7 @@ class TrainerRunTrainValTest:
             self.log.info(f"loss - {epoch_loss}")
 
             if epoch % (self.cfg.run.train.epochs // 10) == 0:
-                self.run_val(epoch)
+                self.run_val()
                 self.model.train()
 
         torch.save(self.school.state_dict(), "pretrained.pth")
