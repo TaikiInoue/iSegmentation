@@ -1,0 +1,10 @@
+decoder:
+  - name: ConvNormReLU
+  - name: Interpolate
+  - name: Concat
+
+  - name: ConvNormReLU
+  - name: Dropout
+  - name: ConvNormReLU
+  - name: Dropout
+  - name: Conv2d
