@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 import torch.nn as nn
@@ -10,11 +9,10 @@ from iseg.blocks import build_blocks
 class UNet(nn.Module):
     def __init__(self):
 
-        print(os.getcwd())
         super(UNet, self).__init__()
 
         cfg_path = Path(__file__).parent / "unet.yaml"
-        self.cfg = OmegaConf.load(cfg_path)
+        self.cfg = OmegaConf.load(str(cfg_path))
         self.encoder = build_blocks(self.cfg.encoder.layers)
         self.decoder = build_blocks(self.cfg.decoder.layers)
         self.output_dict = {}

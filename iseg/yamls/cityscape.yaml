@@ -1,4 +1,4 @@
-device: cuda:0
+device: cuda:2
 
 model:
   name: UNet
@@ -31,15 +31,15 @@ dataset:
 dataloader:
   train:
     args:
-      batch_size: 8
+      batch_size: 32
       shuffle: True
   val:
     args:
-      batch_size: 1
+      batch_size: 32
       shuffle: True
   test:
     args:
-      batch_size: 1
+      batch_size: 32
       shuffle: True
 
 optimizer:
@@ -54,4 +54,4 @@ criterion:
 
 run:
   train:
-    epochs: 200
+    epochs: 100
