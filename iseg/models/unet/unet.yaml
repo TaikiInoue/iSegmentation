@@ -1,308 +1,278 @@
-in_channels:
-num_classes:
-
-encoder:
-  layers:
-    - name: ConvNormReLU
-      args:
-        in_channels: 3
-        out_channels: 64
-        kernel_size: 3
-        stride: 1
-        padding: 1
-        dilation: 1
-        groups: 1
-        bias: True
-        padding_mode: zeros
-        inplace: True
-    - name: ConvNormReLU
-      args:
-        in_channels: 64
-        out_channels: 64
-        kernel_size: 3
-        stride: 1
-        padding: 1
-        dilation: 1
-        groups: 1
-        bias: True
-        padding_mode: zeros
-        inplace: True
-    - name: SaveOutput
-      args:
-        output_name: first_conv
-
-    - name: MaxPool2d
-      args:
-        kernel_size: 2
-    - name: ConvNormReLU
-      args:
-        in_channels: 64
-        out_channels: 128
-        kernel_size: 3
-        stride: 1
-        padding: 1
-        dilation: 1
-        groups: 1
-        bias: True
-        padding_mode: zeros
-        inplace: True
-    - name: ConvNormReLU
-      args:
-        in_channels: 128
-        out_channels: 128
-        kernel_size: 3
-        stride: 1
-        padding: 1
-        dilation: 1
-        groups: 1
-        bias: True
-        padding_mode: zeros
-        inplace: True
-    - name: SaveOutput
-      args:
-        output_name: down_1
-
-    - name: MaxPool2d
-      args:
-        kernel_size: 2
-    - name: ConvNormReLU
-      args:
-        in_channels: 128
-        out_channels: 256
-        kernel_size: 3
-        stride: 1
-        padding: 1
-        dilation: 1
-        groups: 1
-        bias: True
-        padding_mode: zeros
-        inplace: True
-    - name: ConvNormReLU
-      args:
-        in_channels: 256
-        out_channels: 256
-        kernel_size: 3
-        stride: 1
-        padding: 1
-        dilation: 1
-        groups: 1
-        bias: True
-        padding_mode: zeros
-        inplace: True
-    - name: SaveOutput
-      args:
-        output_name: down_2
-
-    - name: MaxPool2d
-      args:
-        kernel_size: 2
-    - name: ConvNormReLU
-      args:
-        in_channels: 256
-        out_channels: 512
-        kernel_size: 3
-        stride: 1
-        padding: 1
-        dilation: 1
-        groups: 1
-        bias: True
-        padding_mode: zeros
-        inplace: True
-    - name: ConvNormReLU
-      args:
-        in_channels: 512
-        out_channels: 512
-        kernel_size: 3
-        stride: 1
-        padding: 1
-        dilation: 1
-        groups: 1
-        bias: True
-        padding_mode: zeros
-        inplace: True
-    - name: SaveOutput
-      args:
-        output_name: down_3
-
-    - name: MaxPool2d
-      args:
-        kernel_size: 2
-    - name: ConvNormReLU
-      args:
-        in_channels: 512
-        out_channels: 512
-        kernel_size: 3
-        stride: 1
-        padding: 1
-        dilation: 1
-        groups: 1
-        bias: True
-        padding_mode: zeros
-        inplace: True
-    - name: ConvNormReLU
-      args:
-        in_channels: 512
-        out_channels: 512
-        kernel_size: 3
-        stride: 1
-        padding: 1
-        dilation: 1
-        groups: 1
-        bias: True
-        padding_mode: zeros
-        inplace: True
-
-decoder:
-  layers:
-    - name: Upsample
-      args:
-        scale_factor: 2
-        mode: bilinear
-        align_corners: True
-    - name: Concat
-      args:
-        dim: 1
-        output_name_list:
-          - down_3
-    - name: ConvNormReLU
-      args:
-        in_channels: 1024
-        out_channels: 256
-        kernel_size: 3
-        stride: 1
-        padding: 1
-        dilation: 1
-        groups: 1
-        bias: True
-        padding_mode: zeros
-        inplace: True
-    - name: ConvNormReLU
-      args:
-        in_channels: 256
-        out_channels: 256
-        kernel_size: 3
-        stride: 1
-        padding: 1
-        dilation: 1
-        groups: 1
-        bias: True
-        padding_mode: zeros
-        inplace: True
-
-    - name: Upsample
-      args:
-        scale_factor: 2
-        mode: bilinear
-        align_corners: True
-    - name: Concat
-      args:
-        dim: 1
-        output_name_list:
-          - down_2
-    - name: ConvNormReLU
-      args:
-        in_channels: 512
-        out_channels: 128
-        kernel_size: 3
-        stride: 1
-        padding: 1
-        dilation: 1
-        groups: 1
-        bias: True
-        padding_mode: zeros
-        inplace: True
-    - name: ConvNormReLU
-      args:
-        in_channels: 128
-        out_channels: 128
-        kernel_size: 3
-        stride: 1
-        padding: 1
-        dilation: 1
-        groups: 1
-        bias: True
-        padding_mode: zeros
-        inplace: True
-
-    - name: Upsample
-      args:
-        scale_factor: 2
-        mode: bilinear
-        align_corners: True
-    - name: Concat
-      args:
-        dim: 1
-        output_name_list:
-          - down_1
-    - name: ConvNormReLU
-      args:
-        in_channels: 256
-        out_channels: 64
-        kernel_size: 3
-        stride: 1
-        padding: 1
-        dilation: 1
-        groups: 1
-        bias: True
-        padding_mode: zeros
-        inplace: True
-    - name: ConvNormReLU
-      args:
-        in_channels: 64
-        out_channels: 64
-        kernel_size: 3
-        stride: 1
-        padding: 1
-        dilation: 1
-        groups: 1
-        bias: True
-        padding_mode: zeros
-        inplace: True
-
-    - name: Upsample
-      args:
-        scale_factor: 2
-        mode: bilinear
-        align_corners: True
-    - name: Concat
-      args:
-        dim: 1
-        output_name_list:
-          - first_conv
-    - name: ConvNormReLU
-      args:
-        in_channels: 128
-        out_channels: 64
-        kernel_size: 3
-        stride: 1
-        padding: 1
-        dilation: 1
-        groups: 1
-        bias: True
-        padding_mode: zeros
-        inplace: True
-    - name: ConvNormReLU
-      args:
-        in_channels: 64
-        out_channels: 64
-        kernel_size: 3
-        stride: 1
-        padding: 1
-        dilation: 1
-        groups: 1
-        bias: True
-        padding_mode: zeros
-        inplace: True
-
-    - name: ConvNormReLU
-      args:
-        in_channels: 64
-        out_channels: 34
-        kernel_size: 3
-        stride: 1
-        padding: 1
-        dilation: 1
-        groups: 1
-        bias: True
-        padding_mode: zeros
-        inplace: True
+unet:
+  parts:
+    - name: FirstConv
+      blocks:
+        - name: ConvNormReLU
+          args:
+            in_channels: 3
+            out_channels: 64
+            kernel_size: 3
+            stride: 1
+            padding: 1
+            dilation: 1
+            groups: 1
+            bias: True
+            padding_mode: zeros
+            inplace: True
+        - name: ConvNormReLU
+          args:
+            in_channels: 64
+            out_channels: 64
+            kernel_size: 3
+            stride: 1
+            padding: 1
+            dilation: 1
+            groups: 1
+            bias: True
+            padding_mode: zeros
+            inplace: True
+    - name: Down
+      - name: MaxPool2d
+        args:
+          kernel_size: 2
+      - name: ConvNormReLU
+        args:
+          in_channels: 64
+          out_channels: 128
+          kernel_size: 3
+          stride: 1
+          padding: 1
+          dilation: 1
+          groups: 1
+          bias: True
+          padding_mode: zeros
+          inplace: True
+      - name: ConvNormReLU
+        args:
+          in_channels: 128
+          out_channels: 128
+          kernel_size: 3
+          stride: 1
+          padding: 1
+          dilation: 1
+          groups: 1
+          bias: True
+          padding_mode: zeros
+          inplace: True
+    - name: Down
+      - name: MaxPool2d
+        args:
+          kernel_size: 2
+      - name: ConvNormReLU
+        args:
+          in_channels: 128
+          out_channels: 256
+          kernel_size: 3
+          stride: 1
+          padding: 1
+          dilation: 1
+          groups: 1
+          bias: True
+          padding_mode: zeros
+          inplace: True
+      - name: ConvNormReLU
+        args:
+          in_channels: 256
+          out_channels: 256
+          kernel_size: 3
+          stride: 1
+          padding: 1
+          dilation: 1
+          groups: 1
+          bias: True
+          padding_mode: zeros
+          inplace: True
+    - name: Down
+      - name: MaxPool2d
+        args:
+          kernel_size: 2
+      - name: ConvNormReLU
+        args:
+          in_channels: 256
+          out_channels: 512
+          kernel_size: 3
+          stride: 1
+          padding: 1
+          dilation: 1
+          groups: 1
+          bias: True
+          padding_mode: zeros
+          inplace: True
+      - name: ConvNormReLU
+        args:
+          in_channels: 512
+          out_channels: 512
+          kernel_size: 3
+          stride: 1
+          padding: 1
+          dilation: 1
+          groups: 1
+          bias: True
+          padding_mode: zeros
+          inplace: True
+    - name: Down
+      - name: MaxPool2d
+        args:
+          kernel_size: 2
+      - name: ConvNormReLU
+        args:
+          in_channels: 512
+          out_channels: 512
+          kernel_size: 3
+          stride: 1
+          padding: 1
+          dilation: 1
+          groups: 1
+          bias: True
+          padding_mode: zeros
+          inplace: True
+      - name: ConvNormReLU
+        args:
+          in_channels: 512
+          out_channels: 512
+          kernel_size: 3
+          stride: 1
+          padding: 1
+          dilation: 1
+          groups: 1
+          bias: True
+          padding_mode: zeros
+          inplace: True
+    - name: Up
+      blocks:
+        - name: Upsample
+          args:
+            scale_factor: 2
+            mode: bilinear
+            align_corners: True
+        - name: ConvNormReLU
+          args:
+            in_channels: 1024
+            out_channels: 256
+            kernel_size: 3
+            stride: 1
+            padding: 1
+            dilation: 1
+            groups: 1
+            bias: True
+            padding_mode: zeros
+            inplace: True
+        - name: ConvNormReLU
+          args:
+            in_channels: 256
+            out_channels: 256
+            kernel_size: 3
+            stride: 1
+            padding: 1
+            dilation: 1
+            groups: 1
+            bias: True
+            padding_mode: zeros
+            inplace: True
+    - name: Up
+      blocks:
+        - name: Upsample
+          args:
+            scale_factor: 2
+            mode: bilinear
+            align_corners: True
+        - name: ConvNormReLU
+          args:
+            in_channels: 512
+            out_channels: 128
+            kernel_size: 3
+            stride: 1
+            padding: 1
+            dilation: 1
+            groups: 1
+            bias: True
+            padding_mode: zeros
+            inplace: True
+        - name: ConvNormReLU
+          args:
+            in_channels: 128
+            out_channels: 128
+            kernel_size: 3
+            stride: 1
+            padding: 1
+            dilation: 1
+            groups: 1
+            bias: True
+            padding_mode: zeros
+            inplace: True
+    - name: Up
+      blocks:
+        - name: Upsample
+          args:
+            scale_factor: 2
+            mode: bilinear
+            align_corners: True
+        - name: ConvNormReLU
+          args:
+            in_channels: 256
+            out_channels: 64
+            kernel_size: 3
+            stride: 1
+            padding: 1
+            dilation: 1
+            groups: 1
+            bias: True
+            padding_mode: zeros
+            inplace: True
+        - name: ConvNormReLU
+          args:
+            in_channels: 64
+            out_channels: 64
+            kernel_size: 3
+            stride: 1
+            padding: 1
+            dilation: 1
+            groups: 1
+            bias: True
+            padding_mode: zeros
+            inplace: True
+    - name: Up
+      blocks:
+      - name: Upsample
+        args:
+          scale_factor: 2
+          mode: bilinear
+          align_corners: True
+      - name: ConvNormReLU
+        args:
+          in_channels: 128
+          out_channels: 64
+          kernel_size: 3
+          stride: 1
+          padding: 1
+          dilation: 1
+          groups: 1
+          bias: True
+          padding_mode: zeros
+          inplace: True
+      - name: ConvNormReLU
+        args:
+          in_channels: 64
+          out_channels: 64
+          kernel_size: 3
+          stride: 1
+          padding: 1
+          dilation: 1
+          groups: 1
+          bias: True
+          padding_mode: zeros
+          inplace: True
+    - name: LastConv
+      blocks:
+      - name: ConvNormReLU
+        args:
+          in_channels: 64
+          out_channels: 34
+          kernel_size: 3
+          stride: 1
+          padding: 1
+          dilation: 1
+          groups: 1
+          bias: True
+          padding_mode: zeros
+          inplace: True
