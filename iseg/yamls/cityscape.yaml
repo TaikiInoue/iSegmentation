@@ -1,8 +1,8 @@
-device: cuda:2
+device: cuda:0
 
 model:
   name: UNet
-  args:
+  yaml: /dgx/github/iSegmentation/iseg/models/unet/unet.yaml
 
 augs:
   train:
@@ -31,15 +31,15 @@ dataset:
 dataloader:
   train:
     args:
-      batch_size: 32
+      batch_size: 16
       shuffle: True
   val:
     args:
-      batch_size: 32
+      batch_size: 16
       shuffle: True
   test:
     args:
-      batch_size: 32
+      batch_size: 16
       shuffle: True
 
 optimizer:

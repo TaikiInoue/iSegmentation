@@ -13,6 +13,7 @@ class LastConv(nn.Module):
                 - name: ConvNormReLU
         """
 
+        super(LastConv, self).__init__()
         last_conv = []
         for block_cfg in block_cfg_list:
             block_attr = getattr(iseg.blocks, block_cfg.name)

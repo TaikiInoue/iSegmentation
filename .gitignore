@@ -5,6 +5,7 @@
 *.zip
 outputs
 sandbox.ipynb
+sandbox.py
 data/cityscape/cookies.txt
 data/cityscape/index.html
 data/cityscape/info.csv

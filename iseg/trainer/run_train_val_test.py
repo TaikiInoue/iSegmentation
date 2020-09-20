@@ -48,8 +48,8 @@ class TrainerRunTrainValTest:
         pbar = tqdm(self.dataloader_dict["val"], desc="val")
         for i, data_dict in enumerate(pbar):
 
-            img = data_dict["image"]
-            msk = data_dict["mask"]
+            img = data_dict["image"].to(self.cfg.device)
+            msk = data_dict["mask"].long().to(self.cfg.device)
             semseg_map = self.model(img)
             loss = self.criterion(semseg_map, msk)
 
@@ -59,6 +59,6 @@ class TrainerRunTrainValTest:
         pbar = tqdm(self.dataloader_dict["test"], desc="test")
         for i, data_dict in enumerate(pbar):
 
-            img = data_dict["image"]
-            msk = data_dict["mask"]
+            img = data_dict["image"].to(self.cfg.device)
+            msk = data_dict["mask"].long().to(self.cfg.device)
             semseg_map = self.model(img)

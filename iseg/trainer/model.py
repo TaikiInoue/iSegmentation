@@ -1,3 +1,5 @@
+from omegaconf import OmegaConf
+
 import iseg.models
 import iseg.typehint as T
 
@@ -8,8 +10,6 @@ class TrainerModel:
 
     def init_model(self) -> T.Module:
 
+        part_cfg_list = OmegaConf.load(self.cfg.model.yaml)
         model_attr = getattr(iseg.models, self.cfg.model.name)
-        if self.cfg.model.args:
-            return model_attr(**self.cfg.model.args)
-        else:
-            return model_attr()
+        return model_attr(part_cfg_list)

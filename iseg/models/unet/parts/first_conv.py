@@ -14,6 +14,7 @@ class FirstConv(nn.Module):
                 - name: ConvNormReLU
         """
 
+        super(FirstConv, self).__init__()
         first_conv = []
         for block_cfg in block_cfg_list:
             block_attr = getattr(iseg.blocks, block_cfg.name)

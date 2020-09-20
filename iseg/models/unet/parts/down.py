@@ -15,6 +15,7 @@ class Down(nn.Module):
                 - name: ConvNormReLU
         """
 
+        super(Down, self).__init__()
         down_conv = []
         for block_cfg in block_cfg_list:
             block_attr = getattr(iseg.blocks, block_cfg.name)
