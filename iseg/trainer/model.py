@@ -10,6 +10,6 @@ class TrainerModel:
 
     def init_model(self) -> T.Module:
 
-        part_cfg_list = OmegaConf.load(self.cfg.model.yaml)
-        model_attr = getattr(iseg.models, self.cfg.model.name)
-        return model_attr(part_cfg_list)
+        model_cfg = OmegaConf.load(self.cfg.model.yaml)
+        model = getattr(iseg.models, self.cfg.model.name)
+        return model(model_cfg.parts)

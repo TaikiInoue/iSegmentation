@@ -1,36 +1,32 @@
 import torch
-import torch.nn as nn
 
-import iseg.blocks
 import iseg.typehint as T
+from iseg.models import BasePart
 
 
-class Up(nn.Module):
-    def __init__(self, block_cfg_list: T.ListConfig) -> None:
+class Up(BasePart):
+
+    up: T.Module
+    conv_norm_relu_0: T.Module
+    conv_norm_relu_1: T.Module
+
+    def __init__(self, part_cfg: T.ListConfig) -> None:
 
         """
         Args:
-            block_cfg_list (T.ListConfig):
-                - name: Upsample (or ConvTranspose2d)
-                - name: ConvNormReLU
-                - name: ConvNormReLU
+            part_cfg (T.ListConfig):
+                - up: Upsample (or ConvTranspose2d)
+                - conv_norm_relu_0: ConvNormReLU
+                - conv_norm_relu_1: ConvNormReLU
         """
 
         super(Up, self).__init__()
-        conv = []
-        for block_cfg in block_cfg_list:
-            block_attr = getattr(iseg.blocks, block_cfg.name)
-            block = block_attr(**block_cfg.args)
+        self.build_part(part_cfg)
 
-            if block_cfg.name in ["Upsample", "ConvTranspose2d"]:
-                self.up = block
-            else:
-                conv.append(block)
+    def forward(self, x_0: T.Tensor, x_1: T.Tensor) -> T.Tensor:
 
-        self.conv = nn.Sequential(*conv)
-
-    def forward(self, x0: T.Tensor, x1: T.Tensor) -> T.Tensor:
-
-        x0 = self.up(x0)
-        x2 = torch.cat([x1, x0], dim=1)
-        return self.conv(x2)
+        x_0 = self.up(x_0)
+        x_2 = torch.cat([x_1, x_0], dim=1)
+        x_2 = self.conv_norm_relu_0(x_2)
+        x_2 = self.conv_norm_relu_1(x_2)
+        return x_2

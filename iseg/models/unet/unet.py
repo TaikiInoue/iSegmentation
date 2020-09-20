@@ -5,51 +5,41 @@ import iseg.typehint as T
 
 
 class UNet(nn.Module):
-    def __init__(self, part_cfg_list: T.ListConfig):
+    def __init__(self, model_cfg: T.ListConfig):
 
         """
         Args:
-            part_cfg_list (T.ListConfig):
-                - name: FirstConv
-                - name: Down
-                - name: Down
-                - name: Down
-                - name: Down
-                - name: Up
-                - name: Up
-                - name: Up
-                - name: Up
-                - name: LastConv
+            model_cfg (T.ListConfig):
+                - first_conv: FirstConv
+                - down_0: Down
+                - down_1: Down
+                - down_2: Down
+                - down_3: Down
+                - up_0: Up
+                - up_1: Up
+                - up_2: Up
+                - up_3: Up
+                - last_conv: LastConv
         """
 
         super(UNet, self).__init__()
 
-        self.first_conv = self.build_block(part_cfg_list[0])
-        self.down_0 = self.build_block(part_cfg_list[1])
-        self.down_1 = self.build_block(part_cfg_list[2])
-        self.down_2 = self.build_block(part_cfg_list[3])
-        self.down_3 = self.build_block(part_cfg_list[4])
-        self.up_0 = self.build_block(part_cfg_list[5])
-        self.up_1 = self.build_block(part_cfg_list[6])
-        self.up_2 = self.build_block(part_cfg_list[7])
-        self.up_3 = self.build_block(part_cfg_list[8])
-        self.last_conv = self.build_block(part_cfg_list[9])
-
-    def build_block(self, part_cfg: T.DictConfig) -> nn.Module:
-
-        part_attr = getattr(iseg.models.unet.parts, part_cfg.name)
-        return part_attr(part_cfg.blocks)
+        for part_cfg in model_cfg:
+            var_name, part_name = part_cfg.popitem()
+            _, part_cfg = part_cfg.popitem()
+            part = getattr(iseg.models.unet.parts, part_name)
+            setattr(self, var_name, part(part_cfg))
 
     def forward(self, x):
 
-        x0 = self.first_conv(x)
-        x1 = self.down_0(x0)
-        x2 = self.down_1(x1)
-        x3 = self.down_2(x2)
-        y0 = self.down_3(x3)
-        y1 = self.up_0(y0, x3)
-        y2 = self.up_1(y1, x2)
-        y3 = self.up_2(y2, x1)
-        z0 = self.up_3(y3, x0)
-        z1 = self.last_conv(z0)
-        return z1
+        x_0 = self.first_conv(x)
+        x_1 = self.down_0(x_0)
+        x_2 = self.down_1(x_1)
+        x_3 = self.down_2(x_2)
+        y_0 = self.down_3(x_3)
+        y_1 = self.up_0(y_0, x_3)
+        y_2 = self.up_1(y_1, x_2)
+        y_3 = self.up_2(y_2, x_1)
+        z_0 = self.up_3(y_3, x_0)
+        z_1 = self.last_conv(z_0)
+        return z_1
