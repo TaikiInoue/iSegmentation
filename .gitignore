@@ -6,11 +6,6 @@
 outputs
 sandbox.ipynb
 sandbox.py
-data/cityscape/cookies.txt
-data/cityscape/index.html
-data/cityscape/info.csv
-data/cityscape/license.txt
-data/cityscape/README
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
