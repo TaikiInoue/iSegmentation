@@ -14,8 +14,8 @@ class FirstConv(nn.Module, Builder):
         """
         Args:
             object_cfg (T.ListConfig):
-                - conv_bn_relu_0: ConvNormReLU
-                - conv_bn_relu_1: ConvNormReLU
+                - conv_bn_relu_0: iseg.models.unet.blocks - ConvNormReLU
+                - conv_bn_relu_1: iseg.models.unet.blocks - ConvNormReLU
         """
 
         super(FirstConv, self).__init__()

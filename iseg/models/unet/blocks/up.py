@@ -16,9 +16,9 @@ class Up(nn.Module, Builder):
         """
         Args:
             object_cfg (T.ListConfig):
-                - up: Upsample (or ConvTranspose2d)
-                - conv_bn_relu_0: ConvNormReLU
-                - conv_bn_relu_1: ConvNormReLU
+                - up: torch.nn - Upsample (torch.nn - ConvTranspose2d)
+                - conv_bn_relu_0: iseg.models.unet.blocks - ConvNormReLU
+                - conv_bn_relu_1: iseg.models.unet.blocks - ConvNormReLU
         """
 
         super(Up, self).__init__()

@@ -13,7 +13,7 @@ class LastConv(nn.Module, Builder):
         """
         Args:
             object_cfg (T.ListConfig):
-                - conv_bn_relu: ConvNormReLU
+                - conv_bn_relu: iseg.models.unet.blocks - ConvNormReLU
         """
 
         super(LastConv, self).__init__()

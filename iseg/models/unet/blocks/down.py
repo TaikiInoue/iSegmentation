@@ -15,9 +15,9 @@ class Down(nn.Module, Builder):
         """
         Args:
             object_cfg (T.ListConfig):
-                - maxpool: MaxPool2d
-                - conv_bn_relu_0: ConvNormReLU
-                - conv_bn_relu_1: ConvNormReLU
+                - maxpool: torch.nn - MaxPool2d
+                - conv_bn_relu_0: iseg.models.unet.blocks - ConvNormReLU
+                - conv_bn_relu_1: iseg.models.unet.blocks - ConvNormReLU
         """
 
         super(Down, self).__init__()
