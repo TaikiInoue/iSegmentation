@@ -1,6 +1,6 @@
 import torch.nn
 
-import iseg.typehint as T
+import iseg.types as T
 
 
 class TrainerCriterion:

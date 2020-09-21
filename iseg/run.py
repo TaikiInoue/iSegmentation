@@ -3,7 +3,7 @@ import sys
 
 import hydra
 
-import iseg.typehint as T
+import iseg.types as T
 from iseg.trainer import Trainer
 
 config_path = sys.argv[1]

@@ -1,7 +1,7 @@
 from omegaconf import OmegaConf
 
 import iseg.models
-import iseg.typehint as T
+import iseg.types as T
 
 
 class TrainerModel:

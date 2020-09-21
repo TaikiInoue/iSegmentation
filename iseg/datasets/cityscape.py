@@ -4,7 +4,7 @@ import cv2
 import pandas as pd
 from torch.utils.data import Dataset
 
-import iseg.typehint as T
+import iseg.types as T
 
 
 class CityscapeDataset(Dataset):

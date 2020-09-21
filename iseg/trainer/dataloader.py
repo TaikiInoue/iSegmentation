@@ -1,6 +1,6 @@
 from torch.utils.data import DataLoader
 
-import iseg.typehint as T
+import iseg.types as T
 
 
 class TrainerDataLoader:

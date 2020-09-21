@@ -1,6 +1,6 @@
 import logging
 
-import iseg.typehint as T
+import iseg.types as T
 from iseg.trainer.augs import TrainerAugs
 from iseg.trainer.criterion import TrainerCriterion
 from iseg.trainer.dataloader import TrainerDataLoader

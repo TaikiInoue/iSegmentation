@@ -3,7 +3,7 @@ from importlib import import_module
 from omegaconf.dictconfig import DictConfig
 from omegaconf.listconfig import ListConfig
 
-import iseg.typehint as T
+import iseg.types as T
 
 
 class Builder:

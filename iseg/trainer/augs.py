@@ -1,4 +1,4 @@
-import iseg.typehint as T
+import iseg.types as T
 from iseg import albu
 
 
