@@ -6,6 +6,12 @@ transform:
   keypoint_params: null
   p: 1.0
   transforms:
+  - __class_fullname__: albumentations.augmentations.transforms.Resize
+    always_apply: false
+    height: 128
+    interpolation: 1
+    p: 1
+    width: 256
   - __class_fullname__: albumentations.augmentations.transforms.Normalize
     always_apply: false
     max_pixel_value: 255.0

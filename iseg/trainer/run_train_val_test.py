@@ -40,7 +40,7 @@ class TrainerRunTrainValTest:
                 self.run_val()
                 self.model.train()
 
-        torch.save(self.school.state_dict(), "pretrained.pth")
+        torch.save(self.model.state_dict(), "pretrained.pth")
 
     def run_val(self):
 

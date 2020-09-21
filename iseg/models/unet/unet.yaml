@@ -1,281 +1,166 @@
-parts:
-  - first_conv: FirstConv
-    blocks:
-      - conv_norm_relu_0: ConvNormReLU
-        args:
-          in_channels: 3
-          out_channels: 64
-          kernel_size: 3
-          stride: 1
-          padding: 1
-          dilation: 1
-          groups: 1
-          bias: True
-          padding_mode: zeros
-          inplace: True
-      - conv_norm_relu_1: ConvNormReLU
-        args:
-          in_channels: 64
-          out_channels: 64
-          kernel_size: 3
-          stride: 1
-          padding: 1
-          dilation: 1
-          groups: 1
-          bias: True
-          padding_mode: zeros
-          inplace: True
-  - down_0: Down
-    blocks:
-      - maxpool: MaxPool2d
-        args:
-          kernel_size: 2
-      - conv_norm_relu_0: ConvNormReLU
-        args:
-          in_channels: 64
-          out_channels: 128
-          kernel_size: 3
-          stride: 1
-          padding: 1
-          dilation: 1
-          groups: 1
-          bias: True
-          padding_mode: zeros
-          inplace: True
-      - conv_norm_relu_1: ConvNormReLU
-        args:
-          in_channels: 128
-          out_channels: 128
-          kernel_size: 3
-          stride: 1
-          padding: 1
-          dilation: 1
-          groups: 1
-          bias: True
-          padding_mode: zeros
-          inplace: True
-  - down_1: Down
-    blocks:
-      - maxpool: MaxPool2d
-        args:
-          kernel_size: 2
-      - conv_norm_relu_0: ConvNormReLU
-        args:
-          in_channels: 128
-          out_channels: 256
-          kernel_size: 3
-          stride: 1
-          padding: 1
-          dilation: 1
-          groups: 1
-          bias: True
-          padding_mode: zeros
-          inplace: True
-      - conv_norm_relu_1: ConvNormReLU
-        args:
-          in_channels: 256
-          out_channels: 256
-          kernel_size: 3
-          stride: 1
-          padding: 1
-          dilation: 1
-          groups: 1
-          bias: True
-          padding_mode: zeros
-          inplace: True
-  - down_2: Down
-    blocks:
-      - maxpool: MaxPool2d
-        args:
-          kernel_size: 2
-      - conv_norm_relu_0: ConvNormReLU
-        args:
-          in_channels: 256
-          out_channels: 512
-          kernel_size: 3
-          stride: 1
-          padding: 1
-          dilation: 1
-          groups: 1
-          bias: True
-          padding_mode: zeros
-          inplace: True
-      - conv_norm_relu_1: ConvNormReLU
-        args:
-          in_channels: 512
-          out_channels: 512
-          kernel_size: 3
-          stride: 1
-          padding: 1
-          dilation: 1
-          groups: 1
-          bias: True
-          padding_mode: zeros
-          inplace: True
-  - down_3: Down
-    blocks:
-      - maxpool: MaxPool2d
-        args:
-          kernel_size: 2
-      - conv_norm_relu_0: ConvNormReLU
-        args:
-          in_channels: 512
-          out_channels: 512
-          kernel_size: 3
-          stride: 1
-          padding: 1
-          dilation: 1
-          groups: 1
-          bias: True
-          padding_mode: zeros
-          inplace: True
-      - conv_norm_relu_1: ConvNormReLU
-        args:
-          in_channels: 512
-          out_channels: 512
-          kernel_size: 3
-          stride: 1
-          padding: 1
-          dilation: 1
-          groups: 1
-          bias: True
-          padding_mode: zeros
-          inplace: True
-  - up_0: Up
-    blocks:
-      - up: Upsample
-        args:
-          scale_factor: 2
-          mode: bilinear
-          align_corners: True
-      - conv_norm_relu_0: ConvNormReLU
-        args:
-          in_channels: 1024
-          out_channels: 256
-          kernel_size: 3
-          stride: 1
-          padding: 1
-          dilation: 1
-          groups: 1
-          bias: True
-          padding_mode: zeros
-          inplace: True
-      - conv_norm_relu_1: ConvNormReLU
-        args:
-          in_channels: 256
-          out_channels: 256
-          kernel_size: 3
-          stride: 1
-          padding: 1
-          dilation: 1
-          groups: 1
-          bias: True
-          padding_mode: zeros
-          inplace: True
-  - up_1: Up
-    blocks:
-      - up: Upsample
-        args:
-          scale_factor: 2
-          mode: bilinear
-          align_corners: True
-      - conv_norm_relu_0: ConvNormReLU
-        args:
-          in_channels: 512
-          out_channels: 128
-          kernel_size: 3
-          stride: 1
-          padding: 1
-          dilation: 1
-          groups: 1
-          bias: True
-          padding_mode: zeros
-          inplace: True
-      - conv_norm_relu_1: ConvNormReLU
-        args:
-          in_channels: 128
-          out_channels: 128
-          kernel_size: 3
-          stride: 1
-          padding: 1
-          dilation: 1
-          groups: 1
-          bias: True
-          padding_mode: zeros
-          inplace: True
-  - up_2: Up
-    blocks:
-      - up: Upsample
-        args:
-          scale_factor: 2
-          mode: bilinear
-          align_corners: True
-      - conv_norm_relu_0: ConvNormReLU
-        args:
-          in_channels: 256
-          out_channels: 64
-          kernel_size: 3
-          stride: 1
-          padding: 1
-          dilation: 1
-          groups: 1
-          bias: True
-          padding_mode: zeros
-          inplace: True
-      - conv_norm_relu_1: ConvNormReLU
-        args:
-          in_channels: 64
-          out_channels: 64
-          kernel_size: 3
-          stride: 1
-          padding: 1
-          dilation: 1
-          groups: 1
-          bias: True
-          padding_mode: zeros
-          inplace: True
-  - up_3: Up
-    blocks:
-      - up: Upsample
-        args:
-          scale_factor: 2
-          mode: bilinear
-          align_corners: True
-      - conv_norm_relu_0: ConvNormReLU
-        args:
-          in_channels: 128
-          out_channels: 64
-          kernel_size: 3
-          stride: 1
-          padding: 1
-          dilation: 1
-          groups: 1
-          bias: True
-          padding_mode: zeros
-          inplace: True
-      - conv_norm_relu_1: ConvNormReLU
-        args:
-          in_channels: 64
-          out_channels: 64
-          kernel_size: 3
-          stride: 1
-          padding: 1
-          dilation: 1
-          groups: 1
-          bias: True
-          padding_mode: zeros
-          inplace: True
-  - last_conv: LastConv
-    blocks:
-      - conv_norm_relu: ConvNormReLU
-        args:
-          in_channels: 64
-          out_channels: 34
-          kernel_size: 3
-          stride: 1
-          padding: 1
-          dilation: 1
-          groups: 1
-          bias: True
-          padding_mode: zeros
-          inplace: True
+- first_conv: iseg.models.unet.blocks - FirstConv
+  blocks:
+    - conv_bn_relu_0: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 3
+        out_channels: 64
+        padding: 1
+        inplace: True
+    - conv_bn_relu_1: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 64
+        out_channels: 64
+        padding: 1
+        inplace: True
+- down_0: iseg.models.unet.blocks - Down
+  blocks:
+    - maxpool: torch.nn - MaxPool2d
+      args:
+        kernel_size: 2
+    - conv_bn_relu_0: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 64
+        out_channels: 128
+        padding: 1
+        inplace: True
+    - conv_bn_relu_1: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 128
+        out_channels: 128
+        padding: 1
+        inplace: True
+- down_1: iseg.models.unet.blocks - Down
+  blocks:
+    - maxpool: torch.nn - MaxPool2d
+      args:
+        kernel_size: 2
+    - conv_bn_relu_0: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 128
+        out_channels: 256
+        padding: 1
+        inplace: True
+    - conv_bn_relu_1: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 256
+        out_channels: 256
+        padding: 1
+        inplace: True
+- down_2: iseg.models.unet.blocks - Down
+  blocks:
+    - maxpool: torch.nn - MaxPool2d
+      args:
+        kernel_size: 2
+    - conv_bn_relu_0: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 256
+        out_channels: 512
+        padding: 1
+        inplace: True
+    - conv_bn_relu_1: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 512
+        out_channels: 512
+        padding: 1
+        inplace: True
+- down_3: iseg.models.unet.blocks - Down
+  blocks:
+    - maxpool: torch.nn - MaxPool2d
+      args:
+        kernel_size: 2
+    - conv_bn_relu_0: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 512
+        out_channels: 512
+        padding: 1
+        inplace: True
+    - conv_bn_relu_1: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 512
+        out_channels: 512
+        padding: 1
+        inplace: True
+- up_0: iseg.models.unet.blocks - Up
+  blocks:
+    - up: torch.nn - Upsample
+      args:
+        scale_factor: 2
+        mode: bilinear
+        align_corners: True
+    - conv_bn_relu_0: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 1024
+        out_channels: 256
+        padding: 1
+        inplace: True
+    - conv_bn_relu_1: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 256
+        out_channels: 256
+        padding: 1
+        inplace: True
+- up_1: iseg.models.unet.blocks - Up
+  blocks:
+    - up: torch.nn - Upsample
+      args:
+        scale_factor: 2
+        mode: bilinear
+        align_corners: True
+    - conv_bn_relu_0: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 512
+        out_channels: 128
+        padding: 1
+        inplace: True
+    - conv_bn_relu_1: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 128
+        out_channels: 128
+        padding: 1
+        inplace: True
+- up_2: iseg.models.unet.blocks - Up
+  blocks:
+    - up: torch.nn - Upsample
+      args:
+        scale_factor: 2
+        mode: bilinear
+        align_corners: True
+    - conv_bn_relu_0: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 256
+        out_channels: 64
+        padding: 1
+        inplace: True
+    - conv_bn_relu_1: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 64
+        out_channels: 64
+        padding: 1
+        inplace: True
+- up_3: iseg.models.unet.blocks - Up
+  blocks:
+    - up: torch.nn - Upsample
+      args:
+        scale_factor: 2
+        mode: bilinear
+        align_corners: True
+    - conv_bn_relu_0: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 128
+        out_channels: 64
+        padding: 1
+        inplace: True
+    - conv_bn_relu_1: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 64
+        out_channels: 64
+        padding: 1
+        inplace: True
+- last_conv: iseg.models.unet.blocks - LastConv
+  blocks:
+    - conv_bn_relu: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 64
+        out_channels: 34
+        padding: 1
+        inplace: True

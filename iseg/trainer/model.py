@@ -12,4 +12,4 @@ class TrainerModel:
 
         model_cfg = OmegaConf.load(self.cfg.model.yaml)
         model = getattr(iseg.models, self.cfg.model.name)
-        return model(model_cfg.parts)
+        return model(model_cfg)
