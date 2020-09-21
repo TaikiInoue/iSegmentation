@@ -9,7 +9,7 @@ class ConvBnReLU(nn.Module):
         # nn.Conv2d
         in_channels: int,
         out_channels: int,
-        kernel_size: int = 3,
+        kernel_size: int,
         stride: int = 1,
         padding: int = 0,
         dilation: int = 1,
