@@ -20,10 +20,10 @@ class ASPP(nn.Module, Builder):
         """
         Args:
             object_cfg (T.ListConfig):
-                - aspp_conv_0: iseg.models.deeplabv3plus.blocks - ASPPConv
-                - aspp_conv_1: iseg.models.deeplabv3plus.blocks - ASPPConv
-                - aspp_conv_2: iseg.models.deeplabv3plus.blocks - ASPPConv
-                - aspp_conv_3: iseg.models.deeplabv3plus.blocks - ASPPConv
+                - aspp_conv_0: iseg.blocks - ConvBnReLU
+                - aspp_conv_1: iseg.blocks - ConvBnReLU
+                - aspp_conv_2: iseg.blocks - ConvBnReLU
+                - aspp_conv_3: iseg.blocks - ConvBnReLU
                 - aspp_pool: iseg.models.deeplabv3plus.blocks - ASPPPool
                 - conv_bn_relu: iseg.blocks - ConvBnReLU
                 - dropout: torch.nn - Dropout
