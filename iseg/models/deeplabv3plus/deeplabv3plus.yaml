@@ -9,33 +9,104 @@ deeplabv3plus:
   blocks:
   - aspp_conv_0: iseg.blocks - ConvBnReLU
     args:
+      in_channels: 2048
+      out_channels: 256
+      kernel_size: 1
+      stride: 1
+      bias: False
+      inplace: True
   - aspp_conv_1: iseg.blocks - ConvBnReLU
     args:
+      in_channels: 2048
+      out_channels: 256
+      kernel_size: 3
+      stride: 1
+      padding: 12
+      dilation: 12
+      bias: False
+      inplace: True
   - aspp_conv_2: iseg.blocks - ConvBnReLU
     args:
+      in_channels: 2048
+      out_channels: 256
+      kernel_size: 3
+      stride: 1
+      padding: 24
+      dilation: 24
+      bias: False
+      inplace: True
   - aspp_conv_3: iseg.blocks - ConvBnReLU
     args:
+      in_channels: 2048
+      out_channels: 256
+      kernel_size: 3
+      stride: 1
+      padding: 36
+      dilation: 36
+      bias: False
+      inplace: True
   - aspp_pool: iseg.models.deeplabv3plus.blocks - ASPPPool
     blocks:
     - avgpool: nn.torch - AdaptiveAvgPool2d
       args:
+        output_size: 1
     - conv_bn_relu: iseg.blocks - ConvBnReLU
       args:
+        in_channels: 2048
+        out_channels: 256
+        kernel_size: 1
+        stride: 1
+        bias: False
+        inplace: True
     - interpolate: iseg.blocks - Interpolate
       args:
+        size:
+        mode: bilinear
+        align_corners: False
   - conv_bn_relu: iseg.blocks - ConvBnReLU
     args:
+      in_channels: 1280
+      out_channels: 256
+      kernel_size: 1
+      stride: 1
+      bias: False
+      inplace: True
   - dropout: torch.nn - Dropout
     args:
+      p: 0.1
+      inplace: False
 - decoder: iseg.models.deeplabv3plus.blocks - Decoder
   blocks:
   - interpolate_0: iseg.blocks - Interpolate
     args:
+      size:
+      mode: bilinear
+      align_corners: False
   - interpolate_1: iseg.blocks - Interpolate
     args:
+      size:
+      mode: bilinear
+      align_corners: False
   - conv_bn_relu_0: iseg.blocks - ConvBnReLU
     args:
+      in_channels: 256
+      out_channels: 48
+      kernel_size: 1
+      stride: 1
+      bias: False
+      inplace: True
   - conv_bn_relu_1: iseg.blocks - ConvBnReLU
     args:
+      in_channels: 304
+      out_channels: 256
+      kernel_size: 3
+      stride: 1
+      padding: 1
+      bias: False
+      inplace: True
   - conv: nn.torch - Conv2d
     args:
+      in_channels: 256
+      out_channels: 21
+      kernel_size: 1
+      stride: 1
