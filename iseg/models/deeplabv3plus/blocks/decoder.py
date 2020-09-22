@@ -7,38 +7,33 @@ from iseg.models import Builder
 
 class Decoder(nn.Module, Builder):
 
+    interpolate_0: T.Module
+    interpolate_1: T.Module
     conv_bn_relu_0: T.Module
     conv_bn_relu_1: T.Module
-    conv_bn_relu_2: T.Module
-    dropout_0: T.Module
-    dropout_1: T.Module
-    interpolate: T.Module
+    conv: T.Module
 
     def __init__(self, object_cfg: T.ListConfig) -> None:
 
         """
         Args:
             object_cfg (T.ListConfig):
+                - interpolate_0: iseg.blocks - Interpolate
+                - interpolate_1: iseg.blocks - Interpolate
                 - conv_bn_relu_0: iseg.blocks - ConvBnReLU
                 - conv_bn_relu_1: iseg.blocks - ConvBnReLU
-                - conv_bn_relu_2: iseg.blocks - ConvBnReLU
-                - dropout_0: torch.nn - Dropout
-                - dropout_1: torch.nn - Dropout
-                - interpolate: iseg.blocks - Interpolate
+                - conv: nn.torch - Conv2d
         """
 
         super(Decoder, self).__init__()
         self.build_blocks(object_cfg)
 
-    def forward(self, x: T.Tensor, feature_dict: T.Dict[str, T.Tensor]) -> T.Tensor:
+    def forward(self, x: T.Tensor, low_feature: T.Tensor) -> T.Tensor:
 
-        x = self.interpolate(x)
-        y = feature_dict["hoge"]
-        y = self.conv_bn_relu_0(y)
-
-        z = torch.cat([x, y], dim=1)
-        z = self.conv_bn_relu_1(z)
-        z = self.dropout_0(z)
-        z = self.conv_bn_relu_1(z)
-        z = self.dropout_1(z)
-        return z
+        x = self.interpolate_0(x)
+        low_feature = self.conv_bn_relu_0(low_feature)
+        out = torch.cat([x, low_feature], dim=1)
+        out = self.conv_bn_relu_1(out)
+        out = self.conv(out)
+        out = self.interpolate_1(out)
+        return out
