@@ -5,27 +5,28 @@ backbone:
   high_feature: res_3
 
 deeplabv3plus:
-- backbone:
 - aspp: iseg.models.deeplabv3plus.blocks - ASPP
   blocks:
-  - aspp_conv_0:
+  - aspp_conv_0: iseg.blocks - ConvBnReLU
+    args:
+  - aspp_conv_1: iseg.blocks - ConvBnReLU
+    args:
+  - aspp_conv_2: iseg.blocks - ConvBnReLU
+    args:
+  - aspp_conv_3: iseg.blocks - ConvBnReLU
+    args:
+  - aspp_pool: iseg.models.deeplabv3plus.blocks - ASPPPool
     blocks:
-    - conv_bn_relu:
-  - aspp_conv_1:
-    blocks:
-    - dilated_conv_bn_relu:
-  - aspp_conv_2:
-    blocks:
-    - dilated_conv_bn_relu:
-  - aspp_conv_3:
-    blocks:
-    - dilated_conv_bn_relu:
-  - aspp_pool:
-    - avgpool:
-    - conv_bn_relu:
-    - interpolate:
-  - conv_bn_relu:
-  - dropout:
+    - avgpool: nn.torch - AdaptiveAvgPool2d
+      args:
+    - conv_bn_relu: iseg.blocks - ConvBnReLU
+      args:
+    - interpolate: iseg.blocks - Interpolate
+      args:
+  - conv_bn_relu: iseg.blocks - ConvBnReLU
+    args:
+  - dropout: torch.nn - Dropout
+    args:
 - decoder: iseg.models.deeplabv3plus.blocks - Decoder
   blocks:
   - interpolate_0: iseg.blocks - Interpolate
