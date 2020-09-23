@@ -1,11 +1,22 @@
-- first_conv: iseg.backbone.resnet.blocks - FirstConv
+- first_conv: iseg.models.backbones.resnet.blocks - FirstConv
   blocks:
   - conv_bn_relu: iseg.blocks - ConvBnReLU
     args:
-      in_channels:
-      out_channels:
+      in_channels: 3
+      out_channels: 64
+      kernel_size: 7
+      stride: 2
+      padding: 3
+      bias: False
+      inplace: True
   - maxpool: torch.nn - MaxPool2d
-- res_0: iseg.backbone.resnet.blocks - Res
+    args:
+      kernel_size: 3
+      stride: 2
+      padding: 1
+      dilation: 1
+      ceil_mode: False
+- res_0: iseg.models.backbones.resnet.blocks - Res
   blocks:
   - bottleneck_0: iseg.models.backbones.resnet.blocks - Bottleneck
     blocks:
@@ -36,7 +47,7 @@
         out_channels: 256
         kernel_size: 1
         bias: False
-    - relu: nn.torch - ReLU
+    - relu: torch.nn - ReLU
       args:
         inplace: True
   - bottleneck_1: iseg.models.backbones.resnet.blocks - Bottleneck
@@ -62,7 +73,7 @@
         out_channels: 256
         kernel_size: 1
         bias: False
-    - relu: nn.torch - ReLU
+    - relu: torch.nn - ReLU
       args:
         inplace: True
   - bottleneck_2: iseg.models.backbones.resnet.blocks - Bottleneck
@@ -88,10 +99,10 @@
         out_channels: 256
         kernel_size: 1
         bias: False
-    - relu: nn.torch - ReLU
+    - relu: torch.nn - ReLU
       args:
         inplace: True
-- res_1: iseg.backbone.resnet.blocks -  Res
+- res_1: iseg.models.backbones.resnet.blocks - Res
   blocks:
   - bottleneck_0: iseg.models.backbones.resnet.blocks - Bottleneck
     blocks:
@@ -124,7 +135,7 @@
         kernel_size: 1
         stride: 2
         bias: False
-    - relu: nn.torch - ReLU
+    - relu: torch.nn - ReLU
       args:
         inplace: True
   - bottleneck_1: iseg.models.backbones.resnet.blocks - Bottleneck
@@ -150,7 +161,7 @@
         out_channels: 512
         kernel_size: 1
         bias: False
-    - relu: nn.torch - ReLU
+    - relu: torch.nn - ReLU
       args:
         inplace: True
   - bottleneck_2: iseg.models.backbones.resnet.blocks - Bottleneck
@@ -176,7 +187,7 @@
         out_channels: 512
         kernel_size: 1
         bias: False
-    - relu: nn.torch - ReLU
+    - relu: torch.nn - ReLU
       args:
         inplace: True
   - bottleneck_3: iseg.models.backbones.resnet.blocks - Bottleneck
@@ -202,10 +213,10 @@
         out_channels: 512
         kernel_size: 1
         bias: False
-    - relu: nn.torch - ReLU
+    - relu: torch.nn - ReLU
       args:
         inplace: True
-- res_2: iseg.backbone.resnet.blocks -  Res
+- res_2: iseg.models.backbones.resnet.blocks - Res
   blocks:
   - bottleneck_0: iseg.models.backbones.resnet.blocks - Bottleneck
     blocks:
@@ -238,7 +249,7 @@
         kernel_size: 1
         stride: 2
         bias: False
-    - relu: nn.torch - ReLU
+    - relu: torch.nn - ReLU
       args:
         inplace: True
   - bottleneck_1: iseg.models.backbones.resnet.blocks - Bottleneck
@@ -264,7 +275,7 @@
         out_channels: 1024
         kernel_size: 1
         bias: False
-    - relu: nn.torch - ReLU
+    - relu: torch.nn - ReLU
       args:
         inplace: True
   - bottleneck_2: iseg.models.backbones.resnet.blocks - Bottleneck
@@ -290,7 +301,7 @@
         out_channels: 1024
         kernel_size: 1
         bias: False
-    - relu: nn.torch - ReLU
+    - relu: torch.nn - ReLU
       args:
         inplace: True
   - bottleneck_3: iseg.models.backbones.resnet.blocks - Bottleneck
@@ -316,7 +327,7 @@
         out_channels: 1024
         kernel_size: 1
         bias: False
-    - relu: nn.torch - ReLU
+    - relu: torch.nn - ReLU
       args:
         inplace: True
   - bottleneck_4: iseg.models.backbones.resnet.blocks - Bottleneck
@@ -342,7 +353,7 @@
         out_channels: 1024
         kernel_size: 1
         bias: False
-    - relu: nn.torch - ReLU
+    - relu: torch.nn - ReLU
       args:
         inplace: True
   - bottleneck_5: iseg.models.backbones.resnet.blocks - Bottleneck
@@ -368,10 +379,10 @@
         out_channels: 1024
         kernel_size: 1
         bias: False
-    - relu: nn.torch - ReLU
+    - relu: torch.nn - ReLU
       args:
         inplace: True
-- res_3: iseg.backbone.resnet.blocks - Res
+- res_3: iseg.models.backbones.resnet.blocks - Res
   blocks:
   - bottleneck_0: iseg.models.backbones.resnet.blocks - Bottleneck
     blocks:
@@ -404,7 +415,7 @@
         kernel_size: 1
         stride: 2
         bias: False
-    - relu: nn.torch - ReLU
+    - relu: torch.nn - ReLU
       args:
         inplace: True
   - bottleneck_1: iseg.models.backbones.resnet.blocks - Bottleneck
@@ -430,7 +441,7 @@
         out_channels: 2048
         kernel_size: 1
         bias: False
-    - relu: nn.torch - ReLU
+    - relu: torch.nn - ReLU
       args:
         inplace: True
   - bottleneck_2: iseg.models.backbones.resnet.blocks - Bottleneck
@@ -456,7 +467,7 @@
         out_channels: 2048
         kernel_size: 1
         bias: False
-    - relu: nn.torch - ReLU
+    - relu: torch.nn - ReLU
       args:
         inplace: True
 - avgpool: torch.nn - AdaptiveAvgPool2d
