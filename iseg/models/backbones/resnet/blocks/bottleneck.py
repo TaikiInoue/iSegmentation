@@ -21,7 +21,7 @@ class Bottleneck(nn.Module, Builder):
                 - conv_bn_relu_1: iseg.blocks - ConvBnReLU
                 - conv_bn: iseg.blocks - ConvBn
                 - downsample: iseg.blocks - ConvBn
-                - relu: nn.torch - ReLU
+                - relu: torch.nn - ReLU
         """
 
         super(Bottleneck, self).__init__()

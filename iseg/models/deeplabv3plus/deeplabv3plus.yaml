@@ -47,7 +47,7 @@ deeplabv3plus:
       inplace: True
   - aspp_pool: iseg.models.deeplabv3plus.blocks - ASPPPool
     blocks:
-    - avgpool: nn.torch - AdaptiveAvgPool2d
+    - avgpool: torch.nn - AdaptiveAvgPool2d
       args:
         output_size: 1
     - conv_bn_relu: iseg.blocks - ConvBnReLU
@@ -104,7 +104,7 @@ deeplabv3plus:
       padding: 1
       bias: False
       inplace: True
-  - conv: nn.torch - Conv2d
+  - conv: torch.nn - Conv2d
     args:
       in_channels: 256
       out_channels: 21

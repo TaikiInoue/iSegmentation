@@ -22,7 +22,7 @@ class Decoder(nn.Module, Builder):
                 - interpolate_1: iseg.blocks - Interpolate
                 - conv_bn_relu_0: iseg.blocks - ConvBnReLU
                 - conv_bn_relu_1: iseg.blocks - ConvBnReLU
-                - conv: nn.torch - Conv2d
+                - conv: torch.nn - Conv2d
         """
 
         super(Decoder, self).__init__()
