@@ -4,7 +4,7 @@ import sys
 import hydra
 
 import iseg.types as T
-from iseg.trainer import Trainer
+from iseg.runner import Runner
 
 config_path = sys.argv[1]
 sys.argv.pop(1)
@@ -15,9 +15,9 @@ def main(cfg: T.DictConfig) -> None:
 
     os.rename(".hydra", "hydra")
 
-    trainer = Trainer(cfg)
-    trainer.run_train()
-    trainer.run_test()
+    runner = Runner(cfg)
+    runner.run_train()
+    runner.run_test()
 
 
 if __name__ == "__main__":

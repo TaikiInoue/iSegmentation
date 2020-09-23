@@ -3,7 +3,7 @@ import torch.nn
 import iseg.types as T
 
 
-class TrainerCriterion:
+class RunnerCriterion:
 
     cfg: T.DictConfig
 

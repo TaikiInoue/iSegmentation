@@ -3,7 +3,7 @@ import torch
 import iseg.types as T
 
 
-class TrainerOptimizer:
+class RunnerOptimizer:
 
     model: T.Module
     cfg: T.DictConfig

@@ -1,23 +1,23 @@
 import logging
 
 import iseg.types as T
-from iseg.trainer.augs import TrainerAugs
-from iseg.trainer.criterion import TrainerCriterion
-from iseg.trainer.dataloader import TrainerDataLoader
-from iseg.trainer.dataset import TrainerDataset
-from iseg.trainer.model import TrainerModel
-from iseg.trainer.optimizer import TrainerOptimizer
-from iseg.trainer.run_train_val_test import TrainerRunTrainValTest
+from iseg.runner.augs import RunnerAugs
+from iseg.runner.criterion import RunnerCriterion
+from iseg.runner.dataloader import RunnerDataLoader
+from iseg.runner.dataset import RunnerDataset
+from iseg.runner.model import RunnerModel
+from iseg.runner.optimizer import RunnerOptimizer
+from iseg.runner.run_train_val_test import RunnerRunTrainValTest
 
 
-class Trainer(
-    TrainerAugs,
-    TrainerCriterion,
-    TrainerDataLoader,
-    TrainerDataset,
-    TrainerOptimizer,
-    TrainerRunTrainValTest,
-    TrainerModel,
+class Runner(
+    RunnerAugs,
+    RunnerCriterion,
+    RunnerDataLoader,
+    RunnerDataset,
+    RunnerOptimizer,
+    RunnerRunTrainValTest,
+    RunnerModel,
 ):
     def __init__(self, cfg: T.DictConfig):
         super().__init__()

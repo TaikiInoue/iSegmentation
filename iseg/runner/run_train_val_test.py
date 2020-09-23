@@ -4,7 +4,7 @@ from tqdm import tqdm
 import iseg.types as T
 
 
-class TrainerRunTrainValTest:
+class RunnerRunTrainValTest:
 
     model: T.Module
     cfg: T.DictConfig

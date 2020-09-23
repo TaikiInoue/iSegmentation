@@ -2,7 +2,7 @@ import iseg.datasets
 import iseg.types as T
 
 
-class TrainerDataset:
+class RunnerDataset:
 
     cfg: T.DictConfig
     augs_dict: T.Dict[str, T.Compose]

@@ -2,7 +2,7 @@ import iseg.types as T
 from iseg import albu
 
 
-class TrainerAugs:
+class RunnerAugs:
 
     cfg: T.DictConfig
 

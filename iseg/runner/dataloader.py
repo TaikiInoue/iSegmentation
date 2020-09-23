@@ -3,7 +3,7 @@ from torch.utils.data import DataLoader
 import iseg.types as T
 
 
-class TrainerDataLoader:
+class RunnerDataLoader:
 
     dataset_dict: T.Dict[str, T.Dataset]
     cfg: T.DictConfig
