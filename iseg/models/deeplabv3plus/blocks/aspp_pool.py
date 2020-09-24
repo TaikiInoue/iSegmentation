@@ -15,7 +15,7 @@ class ASPPPool(nn.Module, Builder):
         """
         Args:
             object_cfg (T.ListConfig):
-                - avgpool: nn.torch - AdaptiveAvgPool2d
+                - avgpool: torch.nn - AdaptiveAvgPool2d
                 - conv_bn_relu: iseg.blocks - ConvBnReLU
                 - interpolate: iseg.blocks - Interpolate
         """
