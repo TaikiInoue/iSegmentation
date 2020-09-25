@@ -31,15 +31,15 @@ dataset:
 dataloader:
   train:
     args:
-      batch_size: 16
+      batch_size: 8
       shuffle: True
   val:
     args:
-      batch_size: 16
+      batch_size: 1
       shuffle: True
   test:
     args:
-      batch_size: 16
+      batch_size: 1
       shuffle: True
 
 optimizer:
@@ -51,7 +51,15 @@ optimizer:
 criterion:
   name: CrossEntropyLoss
   args:
+    reduction: mean
+    ignore_index: 255
 
 run:
   train:
     epochs: 100
+
+metrics:
+  name: iou
+  args:
+    num_classes: 19
+    ignore_index: 255
