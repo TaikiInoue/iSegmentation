@@ -1,59 +1,74 @@
 import os
 from pathlib import Path
 
+import iseg.types as T
 import pandas as pd
+from cityscapesscripts.preparation.json2labelImg import json2labelImg
+from tqdm import tqdm
 
 
-def create_info_csv(base: Path) -> pd.DataFrame:
+def create_info_csv(base: T.Path) -> T.DataFrame:
 
     os.mkdir(base / "images")
     os.mkdir(base / "masks")
 
     di: dict = {
         "old_img_stem": [],
-        "old_mask_stem": [],
-        "label_name": [],
+        "json_file": [],
+        "city_name": [],
         "data_type": [],
         "stem": [],
     }
     for p in base.glob("leftImg8bit/*/*/*_leftImg8bit.png"):
-        label_name = p.parents[0].stem
+        city_name = p.parents[0].stem
         data_type = p.parents[1].stem
         stem = "_".join(p.stem.split("_")[:3])
         stem = f"{data_type}_{stem}"
         old_img_stem = p.stem
-        old_mask_stem = "_".join(p.stem.split("_")[:3])
-        old_mask_stem = f"{old_mask_stem}_gtFine_labelIds"
+        json_file = "_".join(p.stem.split("_")[:3])
+        json_file = f"{json_file}_gtFine_polygons.json"
 
-        di["label_name"].append(label_name)
+        di["city_name"].append(city_name)
         di["data_type"].append(data_type)
         di["stem"].append(stem)
         di["old_img_stem"].append(old_img_stem)
-        di["old_mask_stem"].append(old_mask_stem)
+        di["json_file"].append(json_file)
 
     return pd.DataFrame(di)
 
 
-def move_images_and_masks(base: Path, df: pd.DataFrame):
+def move_images(base: T.Path, df: T.DataFrame) -> None:
 
-    for i in df.index:
+    pbar = tqdm(df.index, desc="move_images")
+    for i in pbar:
         old_img_stem = df.loc[i, "old_img_stem"]
-        old_mask_stem = df.loc[i, "old_mask_stem"]
         stem = df.loc[i, "stem"]
         data_type = df.loc[i, "data_type"]
-        label_name = df.loc[i, "label_name"]
+        city_name = df.loc[i, "city_name"]
 
-        img_src = base / f"leftImg8bit/{data_type}/{label_name}/{old_img_stem}.png"
+        img_src = base / f"leftImg8bit/{data_type}/{city_name}/{old_img_stem}.png"
         img_dst = base / f"images/{stem}.png"
-        mask_src = base / f"gtFine/{data_type}/{label_name}/{old_mask_stem}.png"
-        mask_dst = base / f"masks/{stem}.png"
 
         os.rename(img_src, img_dst)
-        os.rename(mask_src, mask_dst)
+
+
+def convert_json_to_mask(base: T.Path, df: T.DataFrame) -> None:
+
+    pbar = tqdm(df.index, desc="convert_json_to_mask")
+    for i in pbar:
+        data_type = df.loc[i, "data_type"]
+        city_name = df.loc[i, "city_name"]
+        json_file = df.loc[i, "json_file"]
+        stem = df.loc[i, "stem"]
+
+        json_path = base / f"gtFine/{data_type}/{city_name}/{json_file}"
+        mask_path = base / f"masks/{stem}.png"
+        json2labelImg(json_path, mask_path, "trainIds")
 
 
 if __name__ == "__main__":
 
     base = Path("data/cityscape")
     df = create_info_csv(base)
-    move_images_and_masks(base, df)
+    move_images(base, df)
+    convert_json_to_mask(base, df)
