@@ -1,4 +1,5 @@
-from typing import Any, Dict, List, TypeVar
+from typing import Any, Dict, List, Tuple, TypeVar
+
 
 Tensor = TypeVar("torch.tensor")
 Loss = TypeVar("torch.nn.modules.loss._Loss")
@@ -12,3 +13,6 @@ DataFrame = TypeVar("pandas.DataFrame")
 Path = TypeVar("pathlib.Path")
 Logger = TypeVar("logging.Logger")
 ListConfig = TypeVar("omegaconf.listconfig.ListConfig")
+Array = TypeVar("numpy.ndarray")
+
+__all__ = ["Any", "Dict", "List", "Tuple", "TypeVar"]
