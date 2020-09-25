@@ -11,10 +11,10 @@ docker_run:
 			iseg:latest /bin/bash
 
 download_cityscape:
-		sh data/cityspace/download_cityspace.sh
+		sh data/cityscape/download_cityscape.sh
 
 prepare_cityscape:
-		python data/cityspace/prepare_cityspace.py
+		python data/cityscape/prepare_cityscape_dataset.py
 
 run_cityscape:
 		python iseg/run.py yamls/cityscape.yaml
