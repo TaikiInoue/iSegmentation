@@ -1,9 +1,8 @@
 from importlib import import_module
 
+import iseg.types as T
 from omegaconf.dictconfig import DictConfig
 from omegaconf.listconfig import ListConfig
-
-import iseg.types as T
 
 
 class Builder:

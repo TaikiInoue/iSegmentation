@@ -1,6 +1,5 @@
-import torch.nn as nn
-
 import iseg.types as T
+import torch.nn as nn
 from iseg.models import Builder
 
 
