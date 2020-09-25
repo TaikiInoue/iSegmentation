@@ -41,9 +41,9 @@ class CityscapeDataset(Dataset):
         stem = self.stem_list[idx]
         img = cv2.imread(str(self.base / f"images/{stem}.png"))
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        msk = cv2.imread(str(self.base / f"masks/{stem}.png"), cv2.IMREAD_GRAYSCALE)
+        mask = cv2.imread(str(self.base / f"masks/{stem}.png"), cv2.IMREAD_GRAYSCALE)
 
-        data_dict = self.augs(image=img, mask=msk)
+        data_dict = self.augs(image=img, mask=mask)
         data_dict["mask"] = data_dict["mask"]
         data_dict["stem"] = stem
         return data_dict
