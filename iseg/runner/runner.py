@@ -5,9 +5,10 @@ from iseg.runner.augs import RunnerAugs
 from iseg.runner.criterion import RunnerCriterion
 from iseg.runner.dataloader import RunnerDataLoader
 from iseg.runner.dataset import RunnerDataset
+from iseg.runner.metrics import RunnerMetrics
 from iseg.runner.model import RunnerModel
 from iseg.runner.optimizer import RunnerOptimizer
-from iseg.runner.run_train_val_test import RunnerRunTrainValTest
+from iseg.runner.train_val_test import RunnerTrainValTest
 
 
 class Runner(
@@ -15,8 +16,9 @@ class Runner(
     RunnerCriterion,
     RunnerDataLoader,
     RunnerDataset,
+    RunnerMetrics,
     RunnerOptimizer,
-    RunnerRunTrainValTest,
+    RunnerTrainValTest,
     RunnerModel,
 ):
     def __init__(self, cfg: T.DictConfig):
