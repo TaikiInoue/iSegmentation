@@ -26,11 +26,11 @@ def iou(
     """
 
     total_area_dict = _intersect_and_union(segmap_list, mask_list, num_classes, ignore_index)
-    class_iou_array = total_area_dict["intersect"] / total_area_dict["union"]
+    iou_per_class = total_area_dict["intersect"] / total_area_dict["union"]
 
     iou_dict = {}
-    iou_dict["mean"] = iou.mean()
-    for class_id, class_iou in enumerate(class_iou_array):
+    iou_dict["mean"] = iou_per_class.mean()
+    for class_id, class_iou in enumerate(iou_per_class):
         iou_dict[str(class_id)] = class_iou
 
     return iou_dict
