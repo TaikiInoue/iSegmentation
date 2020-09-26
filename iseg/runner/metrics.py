@@ -25,5 +25,5 @@ class RunnerMetrics:
             compute_metric_fn = getattr(iseg.metrics, metric_cfg.name)
             metric_dict = compute_metric_fn(segmap_list, mask_list, **metric_cfg.args)
 
-            for k, v in metric_dict:
+            for k, v in metric_dict.items():
                 self.log.info(f"metrics - {data_type} - {metric_cfg.name} - {k} - {v}")
