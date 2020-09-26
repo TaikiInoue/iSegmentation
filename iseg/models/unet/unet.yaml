@@ -179,7 +179,7 @@
     - conv_bn_relu: iseg.blocks - ConvBnReLU
       args:
         in_channels: 64
-        out_channels: 34
+        out_channels: 19
         kernel_size: 3
         padding: 1
         inplace: True
