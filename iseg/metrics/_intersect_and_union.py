@@ -36,7 +36,6 @@ def _intersect_and_union(
 
     for segmap, mask in zip(segmap_list, mask_list):
 
-        # segmap.shape -> (h, w), mask.shape -> (h, w)
         bool_array = mask != ignore_index
         segmap = segmap[bool_array]
         mask = mask[bool_array]
