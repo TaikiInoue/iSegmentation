@@ -28,14 +28,15 @@ def _intersect_and_union(
 
     zero_array = np.zeros(num_classes, dtype=np.float)
     total_area_dict = {
-        "segmap": zero_array,
-        "mask": zero_array,
-        "intersect": zero_array,
-        "union": zero_array,
+        "segmap": zero_array.copy(),
+        "mask": zero_array.copy(),
+        "intersect": zero_array.copy(),
+        "union": zero_array.copy(),
     }
 
     for segmap, mask in zip(segmap_list, mask_list):
 
+        # segmap.shape -> (h, w), mask.shape -> (h, w)
         bool_array = mask != ignore_index
         segmap = segmap[bool_array]
         mask = mask[bool_array]
