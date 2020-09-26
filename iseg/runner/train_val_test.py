@@ -53,7 +53,11 @@ class RunnerTrainValTest:
                 img = data_dict["image"].to(self.cfg.device)
                 mask = data_dict["mask"].long().to(self.cfg.device)
                 segmap = self.model(img)
-                cumulative_loss += self.criterion(segmap, mask)
+                loss = self.criterion(segmap, mask)
+                cumulative_loss += loss.item()
+
+                # convert (b, num_classes, h, w) to (b, h, w)
+                segmap = segmap.argmax(dim=1)
 
                 mask_list.extend(mask.cpu().detach().numpy())
                 segmap_list.extend(segmap.cpu().detach().numpy())
@@ -77,3 +81,7 @@ class RunnerTrainValTest:
             segmap_list.extend(segmap.cpu().detach().numpy())
 
         self.compute_and_log_metrics("test", segmap_list, mask_list)
+
+    def compute_loss(self, img, mask):
+
+        self.model
