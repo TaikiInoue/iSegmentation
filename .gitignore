@@ -3,6 +3,8 @@
 *.jpg
 *.json
 *.zip
+*.npy
+*.pth
 outputs
 sandbox.ipynb
 sandbox.py
