@@ -1,15 +1,12 @@
-device: cuda:0
+device: cuda:1
 
 model:
-  name: UNet
-  yaml: /dgx/github/iSegmentation/iseg/models/unet/unet.yaml
+  name: DeepLabV3Plus
+  yaml: /dgx/github/iSegmentation/iseg/models/deeplabv3plus/deeplabv3plus.yaml
 
 augs:
   train:
     yaml: /dgx/github/iSegmentation/iseg/yamls/augs/train_augs.yaml
-    updates:
-  val:
-    yaml: /dgx/github/iSegmentation/iseg/yamls/augs/test_augs.yaml
     updates:
   test:
     yaml: /dgx/github/iSegmentation/iseg/yamls/augs/test_augs.yaml
@@ -21,25 +18,20 @@ dataset:
   train:
     query:
       - data_type == 'train'
-  val:
-    query:
-      - data_type == 'val'
   test:
     query:
-      - data_type == 'test'
+      - data_type == 'val'
 
 dataloader:
   train:
     args:
-      batch_size: 8
-      shuffle: True
-  val:
-    args:
-      batch_size: 1
+      batch_size: 16
+      num_workers: 16
       shuffle: True
   test:
     args:
       batch_size: 1
+      num_workers: 16
       shuffle: True
 
 optimizer:
@@ -57,9 +49,10 @@ criterion:
 run:
   train:
     epochs: 100
+    use_amp: True
 
 metrics:
-  name: iou
-  args:
-    num_classes: 19
-    ignore_index: 255
+  - name: iou
+    args:
+      num_classes: 19
+      ignore_index: 255
