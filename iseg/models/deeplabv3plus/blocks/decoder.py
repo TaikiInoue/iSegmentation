@@ -8,7 +8,8 @@ class Decoder(nn.Module, Builder):
 
     conv_bn_relu: T.Module
     interpolate: T.Module
-    aspp_conv: T.Module
+    aspp_conv_0: T.Module
+    aspp_conv_1: T.Module
     dropout: T.Module
     conv: T.Module
 
@@ -19,7 +20,8 @@ class Decoder(nn.Module, Builder):
             object_cfg (T.ListConfig):
                 - conv_bn_relu: iseg.blocks - ConvBnReLU
                 - interpolate: iseg.blocks - Interpolate
-                - aspp_conv: iseg.models.deeplabv3plus.blocks - ASPPConv
+                - aspp_conv_0: iseg.models.deeplabv3plus.blocks - ASPPConv
+                - aspp_conv_1: iseg.models.deeplabv3plus.blocks - ASPPConv
                 - dropout: torch.nn - Dropout2d
                 - conv: torch.nn - Conv2d
         """
@@ -37,7 +39,8 @@ class Decoder(nn.Module, Builder):
 
         x = self.interpolate(x)
         out = torch.cat([x, low_feature], dim=1)
-        out = self.aspp_conv(out)
+        out = self.aspp_conv_0(out)
+        out = self.aspp_conv_1(out)
         out = self.dropout(out)
         out = self.conv(out)
         return out

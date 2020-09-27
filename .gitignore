@@ -9,6 +9,9 @@ outputs
 sandbox.ipynb
 sandbox.py
 
+# Except
+!deeplabv3plus.png
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

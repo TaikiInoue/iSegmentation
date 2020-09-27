@@ -107,12 +107,6 @@ deeplabv3plus:
       inplace: True
 - decoder: iseg.models.deeplabv3plus.blocks - Decoder
   blocks:
-  - interpolate: iseg.blocks - Interpolate
-    args:
-      size:
-      scale_factor:
-      mode: bilinear
-      align_corners: False
   - conv_bn_relu: iseg.blocks - ConvBnReLU
     args:
       in_channels: 256
@@ -121,7 +115,13 @@ deeplabv3plus:
       stride: 1
       bias: False
       inplace: True
-  - aspp_conv: iseg.models.deeplabv3plus.blocks - ASPPConv
+  - interpolate: iseg.blocks - Interpolate
+    args:
+      size:
+      scale_factor:
+      mode: bilinear
+      align_corners: False
+  - aspp_conv_0: iseg.models.deeplabv3plus.blocks - ASPPConv
     blocks:
     - depthwise_conv: iseg.blocks - ConvBnReLU
       args:
@@ -136,6 +136,26 @@ deeplabv3plus:
     - pointwise_conv: iseg.blocks - ConvBnReLU
       args:
         in_channels: 560
+        out_channels: 512
+        kernel_size: 1
+        stride: 1
+        bias: False
+        inplace: True
+  - aspp_conv_1: iseg.models.deeplabv3plus.blocks - ASPPConv
+    blocks:
+    - depthwise_conv: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 512
+        out_channels: 512
+        kernel_size: 3
+        stride: 1
+        padding: 1
+        groups: 512
+        bias: False
+        inplace: True
+    - pointwise_conv: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 512
         out_channels: 512
         kernel_size: 1
         stride: 1
