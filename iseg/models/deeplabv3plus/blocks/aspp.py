@@ -1,7 +1,6 @@
+import iseg.types as T
 import torch
 import torch.nn as nn
-
-import iseg.types as T
 from iseg.models import Builder
 
 
@@ -13,7 +12,6 @@ class ASPP(nn.Module, Builder):
     aspp_conv_3: T.Module
     aspp_pool: T.Module
     conv_bn_relu: T.Module
-    dropout: T.Module
 
     def __init__(self, object_cfg: T.ListConfig) -> None:
 
@@ -21,12 +19,11 @@ class ASPP(nn.Module, Builder):
         Args:
             object_cfg (T.ListConfig):
                 - aspp_conv_0: iseg.blocks - ConvBnReLU
-                - aspp_conv_1: iseg.blocks - ConvBnReLU
-                - aspp_conv_2: iseg.blocks - ConvBnReLU
-                - aspp_conv_3: iseg.blocks - ConvBnReLU
+                - aspp_conv_1: iseg.models.deeplabv3plus.blocks - ASPPConv
+                - aspp_conv_2: iseg.models.deeplabv3plus.blocks - ASPPConv
+                - aspp_conv_3: iseg.models.deeplabv3plus.blocks - ASPPConv
                 - aspp_pool: iseg.models.deeplabv3plus.blocks - ASPPPool
                 - conv_bn_relu: iseg.blocks - ConvBnReLU
-                - dropout: torch.nn - Dropout
         """
 
         super(ASPP, self).__init__()
@@ -40,7 +37,6 @@ class ASPP(nn.Module, Builder):
         x_3 = self.aspp_conv_3(x)
         x_4 = self.aspp_pool(x)
 
-        x_5 = torch.cat([x_0, x_1, x_2, x_3, x_4])
+        x_5 = torch.cat([x_0, x_1, x_2, x_3, x_4], dim=1)
         x_5 = self.conv_bn_relu(x_5)
-        x_5 = self.dropout(x_5)
         return x_5

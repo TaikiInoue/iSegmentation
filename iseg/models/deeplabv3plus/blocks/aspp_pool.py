@@ -1,6 +1,5 @@
-import torch.nn as nn
-
 import iseg.types as T
+import torch.nn as nn
 from iseg.models import Builder
 
 
@@ -24,6 +23,10 @@ class ASPPPool(nn.Module, Builder):
         self.build_blocks(object_cfg)
 
     def forward(self, x: T.Tensor) -> T.Tensor:
+
+        # Update self.interpolate.size from None to (h, w)
+        _, _, h, w = x.shape
+        self.interpolate.size = (h, w)
 
         x = self.avgpool(x)
         x = self.conv_bn_relu(x)

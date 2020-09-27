@@ -1,6 +1,6 @@
 backbone:
   name: ResNet50
-  yaml:
+  yaml: /dgx/github/iSegmentation/iseg/models/backbones/resnet/resnet50.yaml
   low_feature: res_0
   high_feature: res_3
 
@@ -10,41 +10,74 @@ deeplabv3plus:
   - aspp_conv_0: iseg.blocks - ConvBnReLU
     args:
       in_channels: 2048
-      out_channels: 256
+      out_channels: 512
       kernel_size: 1
       stride: 1
       bias: False
       inplace: True
-  - aspp_conv_1: iseg.blocks - ConvBnReLU
-    args:
-      in_channels: 2048
-      out_channels: 256
-      kernel_size: 3
-      stride: 1
-      padding: 12
-      dilation: 12
-      bias: False
-      inplace: True
-  - aspp_conv_2: iseg.blocks - ConvBnReLU
-    args:
-      in_channels: 2048
-      out_channels: 256
-      kernel_size: 3
-      stride: 1
-      padding: 24
-      dilation: 24
-      bias: False
-      inplace: True
-  - aspp_conv_3: iseg.blocks - ConvBnReLU
-    args:
-      in_channels: 2048
-      out_channels: 256
-      kernel_size: 3
-      stride: 1
-      padding: 36
-      dilation: 36
-      bias: False
-      inplace: True
+  - aspp_conv_1: iseg.models.deeplabv3plus.blocks - ASPPConv
+    blocks:
+    - depthwise_conv: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 2048
+        out_channels: 2048
+        kernel_size: 3
+        stride: 1
+        padding: 12
+        dilation: 12
+        groups: 2048
+        bias: False
+        inplace: True
+    - pointwise_conv: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 2048
+        out_channels: 512
+        kernel_size: 1
+        stride: 1
+        bias: False
+        inplace: True
+  - aspp_conv_2: iseg.models.deeplabv3plus.blocks - ASPPConv
+    blocks:
+    - depthwise_conv: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 2048
+        out_channels: 2048
+        kernel_size: 3
+        stride: 1
+        padding: 24
+        dilation: 24
+        groups: 2048
+        bias: False
+        inplace: True
+    - pointwise_conv: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 2048
+        out_channels: 512
+        kernel_size: 1
+        stride: 1
+        bias: False
+        inplace: True
+  - aspp_conv_3: iseg.models.deeplabv3plus.blocks - ASPPConv
+    blocks:
+    - depthwise_conv: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 2048
+        out_channels: 2048
+        kernel_size: 3
+        stride: 1
+        padding: 36
+        dilation: 36
+        groups: 2048
+        bias: False
+        inplace: True
+    - pointwise_conv: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 2048
+        out_channels: 512
+        kernel_size: 1
+        stride: 1
+        bias: False
+        inplace: True
   - aspp_pool: iseg.models.deeplabv3plus.blocks - ASPPPool
     blocks:
     - avgpool: torch.nn - AdaptiveAvgPool2d
@@ -53,7 +86,7 @@ deeplabv3plus:
     - conv_bn_relu: iseg.blocks - ConvBnReLU
       args:
         in_channels: 2048
-        out_channels: 256
+        out_channels: 512
         kernel_size: 1
         stride: 1
         bias: False
@@ -65,29 +98,22 @@ deeplabv3plus:
         align_corners: False
   - conv_bn_relu: iseg.blocks - ConvBnReLU
     args:
-      in_channels: 1280
-      out_channels: 256
-      kernel_size: 1
+      in_channels: 2560
+      out_channels: 512
+      kernel_size: 3
       stride: 1
+      padding: 1
       bias: False
       inplace: True
-  - dropout: torch.nn - Dropout
-    args:
-      p: 0.1
-      inplace: False
 - decoder: iseg.models.deeplabv3plus.blocks - Decoder
   blocks:
-  - interpolate_0: iseg.blocks - Interpolate
+  - interpolate: iseg.blocks - Interpolate
     args:
       size:
+      scale_factor:
       mode: bilinear
       align_corners: False
-  - interpolate_1: iseg.blocks - Interpolate
-    args:
-      size:
-      mode: bilinear
-      align_corners: False
-  - conv_bn_relu_0: iseg.blocks - ConvBnReLU
+  - conv_bn_relu: iseg.blocks - ConvBnReLU
     args:
       in_channels: 256
       out_channels: 48
@@ -95,18 +121,40 @@ deeplabv3plus:
       stride: 1
       bias: False
       inplace: True
-  - conv_bn_relu_1: iseg.blocks - ConvBnReLU
+  - aspp_conv: iseg.models.deeplabv3plus.blocks - ASPPConv
+    blocks:
+    - depthwise_conv: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 560
+        out_channels: 560
+        kernel_size: 3
+        stride: 1
+        padding: 1
+        groups: 560
+        bias: False
+        inplace: True
+    - pointwise_conv: iseg.blocks - ConvBnReLU
+      args:
+        in_channels: 560
+        out_channels: 512
+        kernel_size: 1
+        stride: 1
+        bias: False
+        inplace: True
+  - dropout: torch.nn - Dropout2d
     args:
-      in_channels: 304
-      out_channels: 256
-      kernel_size: 3
-      stride: 1
-      padding: 1
-      bias: False
-      inplace: True
+      p: 0.1
+      inplace: False
   - conv: torch.nn - Conv2d
     args:
-      in_channels: 256
-      out_channels: 21
+      in_channels: 512
+      out_channels: 19
       kernel_size: 1
       stride: 1
+      bias: True
+- interpolate: iseg.blocks - Interpolate
+  args:
+    size:
+    scale_factor:
+    mode: bilinear
+    align_corners: False

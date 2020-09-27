@@ -1,9 +1,8 @@
-import torch.nn as nn
-from omegaconf import OmegaConf
-
 import iseg.models.backbones
 import iseg.types as T
+import torch.nn as nn
 from iseg.models import Builder
+from omegaconf import OmegaConf
 
 
 class DeepLabV3Plus(nn.Module, Builder):
@@ -34,16 +33,23 @@ class DeepLabV3Plus(nn.Module, Builder):
 
         cfg = OmegaConf.load(yaml_path)
         backbone_cfg = cfg.backbone
-        backbone_cls = getattr(iseg.models.backbone, backbone_cfg.name)
-        self.backbone = backbone_cls(backbone_cfg.yaml)
         self.low_feature = backbone_cfg.low_feature
         self.high_feature = backbone_cfg.high_feature
+
+        backbone_cls = getattr(iseg.models.backbones, backbone_cfg.name)
+        backbone_cfg = OmegaConf.load(backbone_cfg.yaml)
+        self.backbone = backbone_cls(backbone_cfg)
+
         self.build_blocks(cfg.deeplabv3plus)
 
     def forward(self, x: T.Tensor) -> T.Tensor:
 
-        _, feature_dict = self.backbone(x)
-        x_0 = self.aspp(feature_dict[self.high_feature])
-        x_1 = self.decoder(x_0, feature_dict[self.low_feature])
+        # Update self.interpolate.size from None to (h, w)
+        _, _, h, w = x.shape
+        self.interpolate.size = (h, w)
 
-        return x_1
+        feature_dict, _ = self.backbone(x)
+        x = self.aspp(feature_dict[self.high_feature])
+        x = self.decoder(x, feature_dict[self.low_feature])
+        x = self.interpolate(x)
+        return x
