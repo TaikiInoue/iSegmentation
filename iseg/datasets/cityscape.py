@@ -1,10 +1,9 @@
 from pathlib import Path
 
-import cv2
+import iseg.types as T
+import numpy as np
 import pandas as pd
 from torch.utils.data import Dataset
-
-import iseg.types as T
 
 
 class CityscapeDataset(Dataset):
@@ -39,9 +38,12 @@ class CityscapeDataset(Dataset):
         """
 
         stem = self.stem_list[idx]
-        img = cv2.imread(str(self.base / f"images/{stem}.png"))
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        mask = cv2.imread(str(self.base / f"masks/{stem}.png"), cv2.IMREAD_GRAYSCALE)
+
+        with open(self.base / f"images/{stem}.npy", "rb") as f:
+            img = np.load(f)
+
+        with open(self.base / f"masks/{stem}.npy", "rb") as f:
+            mask = np.load(f)
 
         data_dict = self.augs(image=img, mask=mask)
         data_dict["mask"] = data_dict["mask"]
