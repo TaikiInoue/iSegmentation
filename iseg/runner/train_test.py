@@ -40,6 +40,11 @@ class RunnerTrainTest:
 
             epoch_loss = cumulative_loss / len(self.dataloader_dict["train"])
             self.log.info(f"loss - {epoch_loss}")
+            self.scheduler.step()
+
+            if epoch % 100 == 0:
+                self.run_test()
+                self.model.train()
 
         torch.save(self.model.state_dict(), f"{self.cfg.model.name}.pth")
 

@@ -25,13 +25,13 @@ dataset:
 dataloader:
   train:
     args:
-      batch_size: 16
-      num_workers: 16
+      batch_size: 24
+      num_workers: 24
       shuffle: True
   test:
     args:
       batch_size: 1
-      num_workers: 16
+      num_workers: 24
       shuffle: True
 
 optimizer:
@@ -39,6 +39,12 @@ optimizer:
   args:
     lr: 0.0002
     weight_decay: 0.00001
+
+scheduler:
+  name: StepLR
+  args:
+    step_size: 100
+    gamma: 0.5
 
 criterion:
   name: CrossEntropyLoss
@@ -48,7 +54,7 @@ criterion:
 
 run:
   train:
-    epochs: 100
+    epochs: 4000
     use_amp: True
 
 metrics:
