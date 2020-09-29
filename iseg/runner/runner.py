@@ -1,6 +1,7 @@
 import logging
 
 import iseg.types as T
+import torch
 from iseg.runner.amp import RunnerAMP
 from iseg.runner.augs import RunnerAugs
 from iseg.runner.criterion import RunnerCriterion
@@ -9,6 +10,7 @@ from iseg.runner.dataset import RunnerDataset
 from iseg.runner.metrics import RunnerMetrics
 from iseg.runner.model import RunnerModel
 from iseg.runner.optimizer import RunnerOptimizer
+from iseg.runner.scheduler import RunnerScheduler
 from iseg.runner.train_test import RunnerTrainTest
 
 
@@ -19,9 +21,10 @@ class Runner(
     RunnerDataLoader,
     RunnerDataset,
     RunnerMetrics,
-    RunnerOptimizer,
-    RunnerTrainTest,
     RunnerModel,
+    RunnerOptimizer,
+    RunnerScheduler,
+    RunnerTrainTest,
 ):
     def __init__(self, cfg: T.DictConfig):
         super().__init__()
@@ -38,7 +41,15 @@ class Runner(
             self.dataloader_dict[data_type] = self.init_dataloader(data_type)
 
         self.model = self.init_model()
-        self.model = self.model.to(self.cfg.device)
         self.scaler = self.init_scaler()
         self.optimizer = self.init_optimizer()
+        self.scheduler = self.init_scheduler()
         self.criterion = self.init_criterion()
+
+        torch.backends.cudnn.benchmark = True
+        torch.autograd.detect_anomaly = False
+        torch.autograd.set_detect_anomaly(False)
+        torch.autograd.profiler.profile = False
+        torch.autograd.profiler.emit_nvtx = False
+        torch.autograd.gradcheck = False
+        torch.autograd.gradgradcheck = False

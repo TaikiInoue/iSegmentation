@@ -9,4 +9,5 @@ class RunnerModel:
     def init_model(self) -> T.Module:
 
         cls = getattr(iseg.models, self.cfg.model.name)
-        return cls(self.cfg.model.yaml)
+        model = cls(self.cfg.model.yaml)
+        return model.to(self.cfg.device)
