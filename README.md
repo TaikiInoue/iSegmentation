@@ -30,11 +30,11 @@ iSegmentation is a semantic segmentation zoo built by PyTorch. This repository i
 
 ## 1. Key Features
 
-### 1.1. Define Models with YAML File
+### ■ Define Models with YAML File
 
-### 1.2. Provide Reliable Models
+### ■ Provide Reliable Models
 
-### 1.3. Easy to Call Models
+### ■ Easy to Call Models
 
 <br>
 
