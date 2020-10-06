@@ -20,3 +20,7 @@
 </a>
 
 <br>
+
+iSegmentation is a semantic segmentation zoo built by PyTorch.
+
+![demo image](assets/demo.png)
