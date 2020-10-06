@@ -8,6 +8,10 @@
 </a>
 
 <a href="#">
+  <img src="https://img.shields.io/badge/pytorch-1.6.0-f0f0f0"/>
+</a>
+
+<a href="#">
   <img src="https://img.shields.io/badge/cuda-10.2-f0f0f0"/>
 </a>
 
