@@ -31,10 +31,25 @@ iSegmentation is a semantic segmentation zoo built by PyTorch. This repository i
 ## 1. Key Features
 
 ### ■ Define Models with YAML File
+![Screen Shot 2020-10-06 at 19 33 25](https://user-images.githubusercontent.com/29189728/95190833-d586ab80-080a-11eb-8553-ce8969526bf4.png)
+
+<br>
 
 ### ■ Provide Reliable Models
 
+<img width="788" alt="Screen Shot 2020-10-06 at 19 41 05" src="https://user-images.githubusercontent.com/29189728/95191608-eedc2780-080b-11eb-984a-f31155bb64bd.png">
+
+<br>
+
 ### ■ Easy to Call Models
+
+```
+from iseg.models import DeepLabV3Plus, FastFCN, UNet
+
+deeplabv3plus = DeepLabV3Plus()
+fastfcn = FastFCN()
+unet = UNet()
+```
 
 <br>
 
@@ -84,3 +99,4 @@ make run_[model name]
 - Implement DeepLabV3
 - Implement FastFCN
 - Support pretrained backbones
+- Create benchmark table on ADE20K dataset
