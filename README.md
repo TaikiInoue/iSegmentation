@@ -63,23 +63,23 @@ unet = UNet()
 
 ## 3. Getting Started
 
-1) Download this repository from GitHub
+Download this repository from GitHub
 ```
 git clone https://github.com/TaikiInoue/iSegmentation.git
 cd iSegmentation
 ```
 
-2) Build docker image
+Build docker image
 ```
 make docker_build
 ```
 
-3) Start docker container
+Start docker container
 ```
 make docker_run
 ```
 
-4) Run a semantic segmentation model. Currently, `UNet`, `DeepLabV3Plus` and `FastFCN` are available in `[model name]`
+Run a semantic segmentation model. Currently, `UNet`, `DeepLabV3Plus` and `FastFCN` are available in `[model name]`
 ```
 make run_[model name]
 ```
