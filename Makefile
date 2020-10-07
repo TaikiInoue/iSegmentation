@@ -11,7 +11,7 @@ docker_run:
 			iseg:latest /bin/bash
 
 download_cityscape:
-		sh data/cityscape/download_cityscape.sh
+		bash data/cityscape/download_cityscape.sh
 
 prepare_cityscape:
 		python data/cityscape/prepare_cityscape_dataset.py
