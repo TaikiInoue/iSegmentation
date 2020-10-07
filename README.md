@@ -66,6 +66,7 @@ unet = UNet()
 - Tensor Core Supported GPU
 - CUDA 10.2
 - Nvidia-Docker2
+- [iClassification: Classification Zoo Built by PyTorch](https://github.com/TaikiInoue/iClassification)
 
 <br>
 
