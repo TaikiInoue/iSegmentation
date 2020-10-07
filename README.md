@@ -23,7 +23,7 @@
   <img src="https://img.shields.io/badge/lisence-MIT-f0f0f0" />
 </a>
 
-<a href= "https://twitter.com/intent/tweet?text=iSegmentation:%20Semantic%20Segmentaion%20Zoo%20Built%20by%20PyTorch.&url=https://github.com/TaikiInoue/iSegmentation">
+<a href= "https://twitter.com/intent/tweet?text=iSegmentation:%20Semantic%20Segmentation%20Zoo%20Built%20by%20PyTorch.&url=https://github.com/TaikiInoue/iSegmentation">
         <img src="https://img.shields.io/twitter/url/https/shields.io.svg?style=social" />
 </a>
 
