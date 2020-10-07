@@ -2,7 +2,7 @@ import iseg.types as T
 import torch.nn as nn
 
 
-class ConvBnReLU(nn.Module):
+class Conv11Bn(nn.Module):
     def __init__(
         self,
         # nn.Conv2d
@@ -10,23 +10,21 @@ class ConvBnReLU(nn.Module):
         out_channels: int,
         kernel_size: int = 1,
         stride: int = 1,
-        padding: int = 1,
+        padding: int = 0,
         dilation: int = 1,
         groups: int = 1,
-        bias: bool = False,
+        bias: bool = True,
         padding_mode: str = "zeros",
         # nn.BatchNorm2d
         eps: float = 1e-05,
         momentum: float = 0.1,
         affine: bool = True,
         track_running_stats: bool = True,
-        # nn.ReLU
-        inplace: bool = True,
     ):
 
-        super(ConvBnReLU, self).__init__()
+        super(Conv11Bn, self).__init__()
 
-        self.conv_bn_relu = nn.Sequential(
+        self.conv11_bn = nn.Sequential(
             nn.Conv2d(
                 in_channels=in_channels,
                 out_channels=out_channels,
@@ -45,9 +43,8 @@ class ConvBnReLU(nn.Module):
                 affine=True,
                 track_running_stats=True,
             ),
-            nn.ReLU(inplace=inplace),
         )
 
     def forward(self, x: T.Tensor) -> T.Tensor:
 
-        return self.conv_bn_relu(x)
+        return self.conv11_bn(x)

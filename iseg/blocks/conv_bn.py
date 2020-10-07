@@ -1,6 +1,5 @@
-import torch.nn as nn
-
 import iseg.types as T
+import torch.nn as nn
 
 
 class ConvBn(nn.Module):
@@ -9,9 +8,9 @@ class ConvBn(nn.Module):
         # nn.Conv2d
         in_channels: int,
         out_channels: int,
-        kernel_size: int,
+        kernel_size: int = 1,
         stride: int = 1,
-        padding: int = 0,
+        padding: int = 1,
         dilation: int = 1,
         groups: int = 1,
         bias: bool = True,
