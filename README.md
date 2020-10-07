@@ -97,8 +97,13 @@ make run_[model name]
 
 ## 3. Benchmarks
 
-| Model | Backbone | Crop Size | Training Time (h) | mIoU | Config File |
-| --    | --       | --        | --                | --   | --          |
+| Model         | Backbone | Crop Size | Training Time (h) | mIoU | Config File |
+| :-            | :-       | :-        | :-                | :-   | :-          |
+| DeepLabV3Plus | ResNet50 | -         | -                 | -    | -           |
+| FastFCN       | ResNet50 | -         | -                 | -    | -           |
+| PSPNet        | ResNet50 | -         | -                 | -    | -           |
+| UNet          | ResNet50 | -         | -                 | -    | -           |
+
 
 <br>
 
